@@ -120,8 +120,25 @@ console.log(batMobile);
 */
 class Lambdasian {
   // constructor({this. name = name, this.age = age, this.location = location})
-
+  constructor(obj) {
+    this.name = obj.name;
+    this.age = obj.age;
+    this.location = obj.location;
+  }
+  speak(){
+  return `Hello my name is ${this.name}, I am from ${this.location}`
+  }
 }
+
+let Lou = new Lambdasian ({
+  name: "Lou",
+  age: 25,
+  location: "West"
+})
+
+console.log(Lou)
+console.log(Lou.speak())
+
 
 /*
   TASK 4
@@ -137,8 +154,21 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian{
+  constructor(instructObj) {
+    super(instructObj);
+    this.specialty = instructObj.specialty;
+    this.favLanguage = instructObj.favLanguage;
+    this.catchPhrase = instructObj.catchPhrase;
+    this.subject = instructObj.subject;
+  }
+  demo(subject) {
+    return `Today we are learning about ${subject}`
+  }
+  //When I pass a student in this parameter will it go up to parent function and insert my student name there and use that to execute this method?
+  grade(student, subject) {
+      return `${student.name} recieves a perfect score on ${subject} `
+  }
 }
 
 /*
@@ -156,9 +186,37 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
+class Student extends Lambdasian {
+    constructor(studentObj) {
+      super(studentObj);
+      this.previousBackground = studentObj.previousBackground;
+      this.className = studentObj.className;
+      this.favSubjects = studentObj.favSubjects;
+    }
 
+  listSubjects() {
+    return `Loving ${'this.favSubjects'}`
+  }
+  PRAssignment(subject) {
+    return `${this.name} has submitted a PR for ${subject} `
+
+  }
+  //How could I get sprintChallenge to return a name from the parent class?
+  sprintChallenge(subject) {
+    return `${this.name} has begun sprint challenge on ${subject}`
+  }
 }
+
+let LouB = new Student({
+  name : "LouB",
+  previousBackground: "Teaching",
+  className: "Web37",
+  favSubjects: "HTMl, CSS and Python"
+})
+
+console.log(LouB.listSubjects())
+console.log(LouB.sprintChallenge("Wizardry"))
+// console.log(Lou.sprintChallenge())
 
 /*
   TASK 6
@@ -173,7 +231,21 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+class ProjectManager extends Instructor {
+  constructor(PMobj) {
+    //What exactly does this argument do in super()?
+    super(PMobj)
+    this.gradClassName = PMobj.gradClassName;
+    this.favInstructor = PMobj.favInstructor;
+  }
+  standUp(slack) {
+    return `${this.name} announces to ${slack}, @${slack} standy times!`
+  }
+
+  debugsCode(subject, name){
+    return `${name} debugs ${this.name} code on ${subject} `
+
+  }
 
 }
 
